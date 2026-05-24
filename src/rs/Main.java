@@ -4,9 +4,12 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class Main {
-    private static CustomerReservation reservations = new CustomerReservation();
-
-    static Scanner sc = new Scanner(System.in);
+	public static Scanner sc = new Scanner(System.in);
+    public static CustomerReservation reservations = new CustomerReservation();
+    public static OrderSystem orders = new OrderSystem();
+    public static MenuCategory categories = new MenuCategory();
+    public static TableSystem tables = new TableSystem();
+    public static BillingSystem bills = new BillingSystem();
 
     public static void main(String[] args) {
         while (true) {
@@ -36,8 +39,8 @@ public class Main {
                     billing();
                     break;
                 case 6:
-                    System.out.println("Exiting program..");
-                    System.exit(0);
+                    System.out.println("Thank you for using this restaurant system.");
+           
                     break;
             }
         }
@@ -87,8 +90,7 @@ public class Main {
                     }
                     break;
 
-                case 5:
-                    return;
+                case 5:return;
             }
         }
     }
@@ -102,14 +104,15 @@ public class Main {
             int choice = getPositiveInteger("Enter choice: ", 1, 4);
 
             switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    return;
+                case 1: System.out.println("Enter order to add: ");
+                			String order = sc.nextLine();
+                			orders.addOrder(order);
+                			break;
+                case 2:orders.serveOrder();
+                    		break;
+                case 3:orders.viewPendingOrders();
+                    	break;
+                case 4: return;
             }
         }
     }
@@ -122,10 +125,12 @@ public class Main {
             int choice = getPositiveInteger("Enter choice: ", 1, 3);
 
             switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                    break;
+                case 1: System.out.print("Enter category name: ");
+                			String category = sc.nextLine();
+                		    categories.addCategory(category);
+                		    break;
+                case 2: categories.viewCategories();
+                    		break;
                 case 3:
                     return;
             }
@@ -141,12 +146,18 @@ public class Main {
             int choice = getPositiveInteger("Enter choice: ", 1, 4);
 
             switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
+                case 1:System.out.print("Enter table number: ");
+                		int table = sc.nextInt();
+                		sc.nextLine();
+                		tables.addTable(table);
+                		break;
+                case 2: System.out.print("Enter occupied table number: ");
+                		int occupiedTable = sc.nextInt();
+                		sc.nextLine();
+                		tables.removeTable(occupiedTable);
+                		break;
+                case 3:tables.viewTable();
+                		break;   
                 case 4:
                     return;
             }
@@ -162,11 +173,21 @@ public class Main {
             int choice = getPositiveInteger("Enter choice: ", 1, 4);
 
             switch (choice) {
-                case 1:
-                    break;
+                case 1: System.out.print("Enter customer name: ");
+                String name = sc.nextLine();
+                System.out.print("Enter total bill amount: ");
+                double amount = sc.nextDouble();
+                sc.nextLine();
+                bills.addBill(name, amount);
+                break;
+                    
                 case 2:
-                    break;
+                	 bills.viewBills();
+                     break;
                 case 3:
+                	System.out.print("Enter customer name to search: ");
+                    String searchName = sc.nextLine();
+                    bills.searchBill(searchName);
                     break;
                 case 4:
                     return;
